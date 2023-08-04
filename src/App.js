@@ -1,6 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import ContactList from './components/ContactList';
 import ContactForm from './components/ContactForm';
+import ContactContext from './ContactContext';
+
+const appStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  // justifyContent: 'center',
+  padding: '20px',
+  fontFamily: 'Arial, sans-serif',
+  backgroundColor: '#F7F7F7',
+  minHeight: '100vh',
+};
 
 function App() {
   const [contacts, setContacts] = useState([]);
@@ -11,31 +23,14 @@ function App() {
     setContacts(contacts);
   }, []);
 
-  const appStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '20px',
-    fontFamily: 'Arial, sans-serif',
-    backgroundColor: '#F7F7F7',
-    minHeight: '100vh',
-  };
-
   return (
-    <div style={appStyle}>
-      <h1>Contact Manager</h1>
-      <ContactForm 
-        setContacts={setContacts} 
-        editingContact={editingContact} 
-        setEditingContact={setEditingContact}
-      />
-      <ContactList 
-        contacts={contacts} 
-        setContacts={setContacts} 
-        setEditingContact={setEditingContact}
-      />
-    </div>
+    <ContactContext.Provider value={{ contacts, setContacts, editingContact, setEditingContact }}>
+      <div style={appStyle}>
+        <h1>Contact Manager</h1>
+        <ContactForm />
+        <ContactList />
+      </div>
+    </ContactContext.Provider>
   );
 }
 

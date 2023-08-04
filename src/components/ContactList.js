@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Contact from './Contact';
+import ContactContext from '../ContactContext';
 
-const ContactList = ({ contacts, setContacts, setEditingContact }) => {
-  const listStyle = {
-    listStyle: 'none',
-    padding: 0,
-  };
+const listStyle = {
+  listStyle: 'none',
+  padding: '0',
+};
+
+const ContactList = () => {
+  const { contacts } = useContext(ContactContext);
 
   return (
     <ul style={listStyle}>
       {contacts.map((contact, index) => (
         <Contact 
           key={index} 
-          contact={contact} 
-          setContacts={setContacts} 
-          setEditingContact={setEditingContact}
+          contact={contact}
         />
       ))}
     </ul>
